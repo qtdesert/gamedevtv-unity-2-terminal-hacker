@@ -7,6 +7,8 @@ public class Hacker : MonoBehaviour {
 
     // Game state
     int level;
+    enum Screen { MainMenu, Password, Win };
+    Screen currentScreen = Screen.MainMenu;
 
     // Start is called before the first frame update
     void Start() {
@@ -41,9 +43,11 @@ public class Hacker : MonoBehaviour {
         } else if (input == "neo") {
             Terminal.WriteLine("I am sorry, you are not the one.");
         } else if (input == "morpheus") {
-            Terminal.WriteLine("You're going to have to make a choice.");
+            Terminal.WriteLine("Red pill or blue pill?");
         } else if (input == "trinity") {
-            Terminal.WriteLine("She thinks you are.");
+            Terminal.WriteLine("She thinks neo is the one.");
+        } else if (input == "oracle") {
+            Terminal.WriteLine("You're going to have to make a choice.");
         } else if (input == "red") {
             Terminal.WriteLine("The girl?");
         } else {
@@ -52,6 +56,8 @@ public class Hacker : MonoBehaviour {
     }
 
     void StartGame() {
+        currentScreen = Screen.Password;
         Terminal.WriteLine("You have chosen level " + level);
+        Terminal.WriteLine("Please enter your password: ");
     }
 }
