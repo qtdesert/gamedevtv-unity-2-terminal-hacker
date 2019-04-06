@@ -1,9 +1,13 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Hacker : MonoBehaviour {
-    
+
+    // Game state
+    int level;
+
     // Start is called before the first frame update
     void Start() {
         ShowMainMenu();
@@ -24,11 +28,14 @@ public class Hacker : MonoBehaviour {
         if (input == "menu") {
             ShowMainMenu();
         } else if (input == "1") {
-            Terminal.WriteLine("You chose level 1");
+            level = 1;
+            StartGame();
         } else if (input == "2") {
-            Terminal.WriteLine("You chose level 2");
+            level = 2;
+            StartGame();
         } else if (input == "3") {
-            Terminal.WriteLine("You chose level 3");
+            level = 3;
+            StartGame();
         } else if (input == "matrix") {
             Terminal.WriteLine("Are you the one?");
         } else if (input == "neo") {
@@ -42,5 +49,9 @@ public class Hacker : MonoBehaviour {
         } else {
             Terminal.WriteLine("Please choose a valid level");
         }
+    }
+
+    void StartGame() {
+        Terminal.WriteLine("You have chosen level " + level);
     }
 }
