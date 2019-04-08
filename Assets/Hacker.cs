@@ -5,6 +5,10 @@ using UnityEngine;
 
 public class Hacker : MonoBehaviour {
 
+    // Game configuration data
+    string[] level1Passwords = { "kungfu", "jujitsu", "dojo", "learn", "fight" };
+    string[] level2Passwords = { "agentsmith", "woman", "red", "suits", "pause" };
+
     // Game state
     int level;
     enum Screen { MainMenu, Password, Win };
@@ -41,11 +45,11 @@ public class Hacker : MonoBehaviour {
     private void RunMainMenu(string input) {
         if (input == "1") {
             level = 1;
-            password = "kungfu";
+            password = level1Passwords[2]; //TODO make random later
             StartGame();
-        } else if (input == "2") {
+        } else if (input == "2") { 
             level = 2;
-            password = "agentsmith";
+            password = level2Passwords[1];
             StartGame();
         } else if (input == "3") {
             level = 3;
