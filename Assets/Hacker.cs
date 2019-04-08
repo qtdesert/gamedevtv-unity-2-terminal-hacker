@@ -84,14 +84,56 @@ public class Hacker : MonoBehaviour {
 
     private void CheckPassword(string input) {
         if (input == password) {
-            WonGame();
+            DisplayWinScreen();
         } else {
             Terminal.WriteLine("Sorry, try again!");
         }
     }
     
-    void WonGame() {
+    void DisplayWinScreen() {
         currentScreen = Screen.Win;
-        Terminal.WriteLine("WELL DONE!");
+        Terminal.ClearScreen();
+        ShowLevelReward();
+    }
+
+    void ShowLevelReward() {
+        switch(level) {
+            case 1:
+                Terminal.WriteLine("Enter the combat program...");
+                Terminal.WriteLine(@"
+      ___   )            ,  @
+   @___, \ /          @__\  /\
+  /\__,   |          /\_, \/ /
+ / \    / @\        / \   (
+/__|___/___/_______/__|____\__
+"
+                );
+                break;
+            case 2:
+                Terminal.WriteLine("Enter the street program...");
+                Terminal.WriteLine(@"
+     ___________
+    //   |||   \\
+ __//____|||____\\____
+| _|      |       _  ||
+|/ \______|______/ \_||
+_\_/_____________\_/___
+"
+                );
+                break;
+            case 3:
+                Terminal.WriteLine("Enter the matrix...");
+                Terminal.WriteLine(@"
+       ________     ________
+  . - ~|        |-^-|        |~ - .
+{      |        |   |        |      }
+        `.____.'     `.____.'
+"
+                );
+                break;
+            default:
+                Debug.LogError("Invalid level reached");
+                break;
+        }
     }
 }
