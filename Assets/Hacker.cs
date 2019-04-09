@@ -3,6 +3,7 @@
 public class Hacker : MonoBehaviour {
 
     // Game configuration data
+    const string menuHint = "You may type menu at any time.";
     string[] level1Passwords = { "kungfu", "jujitsu", "dojo", "learn", "fight" };
     string[] level2Passwords = { "agentsmith", "woman", "red", "suits", "pause" };
     string[] level3Passwords = { "nabuchadnezzar", "real", "green", "phone", "code" };
@@ -40,11 +41,11 @@ public class Hacker : MonoBehaviour {
         }
     }
 
-    private void RunMainMenu(string input) {
+    void RunMainMenu(string input) {
         bool isValidLevelNumber = (input == "1" || input == "2" || input == "3");
         if (isValidLevelNumber) {
             level = int.Parse(input);
-            StartGame();
+            AskForPassword();
         } else if (input == "matrix") {
             Terminal.WriteLine("Are you the one?");
         } else if (input == "neo") {
@@ -59,13 +60,20 @@ public class Hacker : MonoBehaviour {
             Terminal.WriteLine("The girl?");
         } else {
             Terminal.WriteLine("Please choose a valid level");
+            Terminal.WriteLine(menuHint);
         }
     }
 
-    void StartGame() {
+    void AskForPassword() {
         currentScreen = Screen.Password;
         Terminal.ClearScreen();
-        switch(level) {
+        SetRandomPassword();
+        Terminal.WriteLine("Enter your password, hint: " + password.Anagram());
+        Terminal.WriteLine(menuHint);
+    }
+
+    void SetRandomPassword() {
+        switch (level) {
             case 1:
                 password = level1Passwords[Random.Range(0, level1Passwords.Length)];
                 break;
@@ -79,14 +87,13 @@ public class Hacker : MonoBehaviour {
                 Debug.LogError("Invalid level number");
                 break;
         }
-        Terminal.WriteLine("Please enter your password: ");
     }
 
-    private void CheckPassword(string input) {
+    void CheckPassword(string input) {
         if (input == password) {
             DisplayWinScreen();
         } else {
-            Terminal.WriteLine("Sorry, try again!");
+            AskForPassword();
         }
     }
     
@@ -94,6 +101,7 @@ public class Hacker : MonoBehaviour {
         currentScreen = Screen.Win;
         Terminal.ClearScreen();
         ShowLevelReward();
+        Terminal.WriteLine(menuHint);
     }
 
     void ShowLevelReward() {
@@ -120,14 +128,15 @@ public class Hacker : MonoBehaviour {
 _\_/_____________\_/___
 "
                 );
+                Terminal.WriteLine("Play again for a greater challenge.");
                 break;
             case 3:
-                Terminal.WriteLine("Enter the matrix...");
+                Terminal.WriteLine("Welcome the matrix.");
                 Terminal.WriteLine(@"
-       ________     ________
-  . - ~|        |-^-|        |~ - .
-{      |        |   |        |      }
-        `.____.'     `.____.'
+                |       _)        
+ __`__ \   _` | __|  __| |\ \  / 
+ |  |   | (   | |   |    | `  <  
+_| _|  _|\__,_|\__|_|   _| _/\_\
 "
                 );
                 break;
